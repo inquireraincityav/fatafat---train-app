@@ -14,7 +14,7 @@ export function PageHeader({ title, subtitle, showSettings = true, showBack = fa
   const router = useRouter();
 
   return (
-    <header className="flex items-center justify-between px-5 pt-5 pb-3">
+    <header className="flex items-center justify-between px-[20px] pt-[20px] pb-[12px]">
       <div className="flex items-center gap-3">
         {showBack && (
           <button onClick={() => router.back()} className="p-1 -ml-1">
@@ -25,15 +25,22 @@ export function PageHeader({ title, subtitle, showSettings = true, showBack = fa
           </button>
         )}
         <div>
-          <h1 className="font-serif text-[24px] font-semibold leading-[30px] text-indigo">{title}</h1>
-          {subtitle && <p className="text-[12px] text-[#a09890] mt-0.5">{subtitle}</p>}
+          <h1
+            className="font-serif text-[24px] font-semibold leading-[30px] text-[#1f3a5f]"
+            style={{ fontVariationSettings: '"SOFT" 0, "WONK" 1' }}
+          >
+            {title}
+          </h1>
+          {subtitle && (
+            <p className="text-[12px] leading-[16px] text-[#a09890] pt-[2px]">{subtitle}</p>
+          )}
         </div>
       </div>
       {rightElement}
       {showSettings && !rightElement && (
         <button
           onClick={() => router.push('/settings')}
-          className="w-9 h-9 rounded-full bg-[#ede5d8] flex items-center justify-center mt-1"
+          className="w-[36px] h-[36px] rounded-full bg-[#ede5d8] flex items-center justify-center"
           aria-label="Settings"
         >
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#6B6860" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">

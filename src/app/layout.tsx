@@ -1,16 +1,16 @@
 import type { Metadata, Viewport } from 'next';
-import { Playfair_Display, Source_Sans_3 } from 'next/font/google';
+import { Fraunces, Inter } from 'next/font/google';
 import { AppProvider } from '@/context/AppContext';
 import './globals.css';
 
-const playfair = Playfair_Display({
+const fraunces = Fraunces({
   variable: '--font-serif',
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
   display: 'swap',
+  axes: ['SOFT', 'WONK'],
 });
 
-const sourceSans = Source_Sans_3({
+const inter = Inter({
   variable: '--font-sans',
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
@@ -33,7 +33,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${sourceSans.variable}`}>
+    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
       <body className="font-sans">
         <AppProvider>{children}</AppProvider>
       </body>

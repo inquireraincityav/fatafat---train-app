@@ -45,20 +45,20 @@ export function BottomNav() {
   const activeTab = tabs.find((t) => pathname.startsWith(t.path))?.id || 'home';
 
   return (
-    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-cream-light border-t border-[#ddd5c8] pb-safe z-50">
-      <div className="flex items-center justify-around pt-1 pb-1">
+    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-[#fbf7ef] border-t-[1.119px] border-[#ddd5c8] z-50">
+      <div className="flex items-center justify-around h-[64px]">
         {tabs.map((tab) => {
           const isActive = activeTab === tab.id;
           return (
             <button
               key={tab.id}
               onClick={() => router.push(tab.path)}
-              className="flex flex-col items-center gap-0.5 px-6 py-1"
+              className="flex flex-col items-center gap-[2px] px-[24px] py-[4px]"
             >
               {tab.icon(isActive)}
               <span
-                className={`text-[10px] font-medium ${
-                  isActive ? 'text-marigold' : 'text-[#a09890]'
+                className={`text-[10px] font-medium leading-[15px] ${
+                  isActive ? 'text-[#e8a63c]' : 'text-[#a09890]'
                 }`}
               >
                 {tab.label}
