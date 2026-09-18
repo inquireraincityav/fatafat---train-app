@@ -20,12 +20,15 @@ export type Station = {
 
 export type Departure = {
   id: string;
-  time: string;
+  line: RailLine;
+  origin: string;
+  destination: string;
   speed: TrainSpeed;
   platform: number;
   crowd: CrowdLevel;
-  destination: string;
-  minutesAway?: number;
+  minutesAway: number;
+  totalMinutes: number;
+  busConnection?: string;
 };
 
 export type SavedRoute = {

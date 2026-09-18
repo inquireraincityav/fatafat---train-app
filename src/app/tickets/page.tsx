@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation';
 import { useApp } from '@/context/AppContext';
 import { AppShell } from '@/components/layout/AppShell';
 import { PageHeader } from '@/components/layout/PageHeader';
-import { Button } from '@/components/ui/Button';
 import { QRCodeSVG } from 'qrcode.react';
 
 export default function TicketsPage() {
@@ -21,67 +20,74 @@ export default function TicketsPage() {
       <PageHeader title="My tickets" />
 
       <div className="px-4 mt-2">
-        <Button fullWidth variant="primary" size="lg" onClick={() => router.push('/tickets/buy')} className="mb-4">
-          Buy a ticket
-        </Button>
-
+        {/* Active tickets */}
         {activeTickets.length > 0 && (
-          <div className="mb-4">
-            <p className="text-[11px] font-semibold tracking-[0.8px] text-[#a09890] uppercase mb-2">Active</p>
-            <div className="space-y-3">
-              {activeTickets.map((ticket) => (
-                <div
-                  key={ticket.id}
-                  className="bg-cream-light border border-[#d8cebc] rounded-2xl p-4"
-                >
-                  <div className="flex items-start justify-between mb-3">
-                    <div>
-                      <p className="text-[15px] font-semibold text-charcoal">
-                        {ticket.from} &rarr; {ticket.to}
-                      </p>
-                      <p className="text-[12px] text-charcoal-light mt-0.5">
-                        {ticket.fareType === 'single' ? 'Single' : ticket.fareType === 'return' ? 'Return' : ticket.fareType === 'monthly' ? 'Monthly pass' : 'Quarterly pass'}
-                        {' · '}{ticket.ticketClass === 'first' ? 'First' : 'Second'} class
-                      </p>
-                      {ticket.expiresAt && (
-                        <p className="text-[11px] text-marigold mt-1">
-                          Expires {new Date(ticket.expiresAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
-                        </p>
-                      )}
-                    </div>
-                    <span className="text-[16px] font-bold text-indigo">
-                      ₹{ticket.price}
-                    </span>
-                  </div>
-                  <div className="flex justify-center py-2">
+          <div className="space-y-4 mb-4">
+            {activeTickets.map((ticket) => (
+              <div
+                key={ticket.id}
+                className="bg-indigo rounded-2xl p-5 text-cream-light"
+              >
+                <div className="flex items-start justify-between mb-1">
+                  <span className="text-[12px] text-cream-light/60">Active ticket</span>
+                  <span className="bg-marigold text-indigo text-[11px] font-bold px-2.5 py-0.5 rounded-full">
+                    Valid
+                  </span>
+                </div>
+                <h3 className="font-serif text-[20px] font-bold text-cream-light leading-[26px] mb-0.5">
+                  {ticket.from} &rarr; {ticket.to}
+                </h3>
+                <p className="text-[13px] text-cream-light/60 mb-4">
+                  {ticket.ticketClass === 'first' ? 'First' : 'Second'} class &middot;{' '}
+                  {ticket.fareType === 'single' ? 'Single journey' : ticket.fareType === 'return' ? 'Return' : ticket.fareType === 'monthly' ? 'Monthly pass' : 'Quarterly pass'}
+                </p>
+
+                {/* QR code */}
+                <div className="flex justify-center py-3">
+                  <div className="bg-white rounded-xl p-4">
                     <QRCodeSVG
                       value={`fatafat://ticket/${ticket.id}`}
-                      size={120}
-                      bgColor="#FBF7EF"
+                      size={140}
+                      bgColor="#ffffff"
                       fgColor="#1F3A5F"
                     />
                   </div>
                 </div>
-              ))}
-            </div>
+
+                <p className="text-center text-[13px] text-marigold mt-3">
+                  Valid until 4:30 PM today
+                </p>
+              </div>
+            ))}
           </div>
         )}
 
+        {/* Buy ticket button */}
+        <button
+          onClick={() => router.push('/tickets/buy')}
+          className="w-full bg-marigold text-indigo font-semibold text-[15px] py-3.5 rounded-xl mb-4 active:brightness-95 transition-all"
+        >
+          Buy a ticket
+        </button>
+
+        {/* Past tickets */}
         {pastTickets.length > 0 && (
           <div>
-            <p className="text-[11px] font-semibold tracking-[0.8px] text-[#a09890] uppercase mb-2">History</p>
+            <p className="text-[11px] font-semibold tracking-[0.8px] text-charcoal-light uppercase mb-2">
+              History
+            </p>
             <div className="space-y-2">
               {pastTickets.map((ticket) => (
                 <div
                   key={ticket.id}
-                  className="bg-cream-light/60 border border-[#ede5d8] rounded-xl px-4 py-3 opacity-70"
+                  className="bg-cream-light border border-[#d8cebc] rounded-xl px-4 py-3"
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-[14px] text-charcoal">
+                      <p className="text-[14px] font-medium text-charcoal">
                         {ticket.from} &rarr; {ticket.to}
                       </p>
-                      <p className="text-[11px] text-[#a09890]">
+                      <p className="text-[11px] text-charcoal-light">
                         {new Date(ticket.purchasedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
                         {' · '}{ticket.ticketClass === 'first' ? 'First' : 'Second'} class
                       </p>
@@ -97,7 +103,7 @@ export default function TicketsPage() {
         {tickets.length === 0 && (
           <div className="text-center py-12">
             <p className="text-[14px] text-charcoal-light">No tickets yet</p>
-            <p className="text-[12px] text-[#a09890] mt-1">Buy your first ticket to get started</p>
+            <p className="text-[12px] text-charcoal-light/60 mt-1">Buy your first ticket to get started</p>
           </div>
         )}
       </div>

@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { Button } from '@/components/ui/Button';
 
-const topics: Record<string, { title: string; steps: { heading: string; body: string }[] }> = {
+const topics: Record<string, { title: string; emoji: string; steps: { heading: string; body: string }[] }> = {
   'fast-vs-slow': {
     title: 'Fast vs. slow trains',
+    emoji: '🚆',
     steps: [
       {
         heading: 'Two types of trains',
@@ -24,6 +24,7 @@ const topics: Record<string, { title: string; steps: { heading: string; body: st
   },
   compartments: {
     title: 'Compartments',
+    emoji: '🚃',
     steps: [
       {
         heading: 'General compartment',
@@ -40,7 +41,8 @@ const topics: Record<string, { title: string; steps: { heading: string; body: st
     ],
   },
   fares: {
-    title: 'Buying a ticket',
+    title: 'Fares & tickets',
+    emoji: '🎫',
     steps: [
       {
         heading: 'Ticket types',
@@ -74,56 +76,67 @@ export default function BasicsTopicPage() {
   }
 
   const step = topic.steps[stepIndex];
-  const isFirst = stepIndex === 0;
   const isLast = stepIndex === topic.steps.length - 1;
 
   return (
     <div className="min-h-dvh bg-indigo flex flex-col">
-      <header className="px-4 pt-12 pb-4">
-        <button onClick={() => router.back()} className="p-1 -ml-1" aria-label="Go back">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4EDE0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      {/* Header with back */}
+      <header className="px-4 pt-[env(safe-area-inset-top)]">
+        <button onClick={() => router.back()} className="p-1 -ml-1 pt-3" aria-label="Go back">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4EDE0" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M19 12H5" />
             <polyline points="12 19 5 12 12 5" />
           </svg>
         </button>
       </header>
 
-      <div className="flex-1 flex flex-col items-center justify-center px-6 text-center">
-        <div className="mb-6">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-            <rect x="4" y="16" width="40" height="16" rx="3" fill="#E8A63C" />
-            <circle cx="14" cy="36" r="3" fill="#F4EDE0" />
-            <circle cx="34" cy="36" r="3" fill="#F4EDE0" />
-          </svg>
-        </div>
-
-        <h2 className="font-serif text-[22px] font-bold text-cream-light mb-4">{step.heading}</h2>
-        <p className="text-[15px] text-cream-light/80 leading-[22px] max-w-[300px]">{step.body}</p>
-      </div>
-
-      <div className="flex justify-center gap-1.5 mb-4">
+      {/* Step dots */}
+      <div className="flex justify-center gap-2 mt-2 mb-auto">
         {topic.steps.map((_, i) => (
           <div
             key={i}
-            className={`w-2 h-2 rounded-full ${i === stepIndex ? 'bg-marigold' : 'bg-cream-light/30'}`}
+            className={`h-[4px] rounded-full transition-all ${
+              i === stepIndex ? 'w-[24px] bg-marigold' : 'w-[8px] bg-cream-light/30'
+            }`}
           />
         ))}
       </div>
 
-      <div className="px-6 pb-8 flex gap-3">
-        {!isFirst && (
-          <Button variant="ghost" size="lg" className="flex-1 text-cream-light border border-cream-light/20" onClick={() => setStepIndex(stepIndex - 1)}>
+      {/* Content */}
+      <div className="flex-1 flex flex-col items-center justify-center px-6 text-center">
+        <span className="text-[48px] mb-4">{topic.emoji}</span>
+        <h2 className="font-serif text-[24px] font-bold text-cream-light leading-[30px] mb-4">
+          {step.heading}
+        </h2>
+        <div className="bg-[#253f5f] border border-[#35506e] rounded-2xl px-5 py-4 max-w-[320px]">
+          <p className="text-[14px] text-cream-light/80 leading-[21px]">
+            {step.body}
+          </p>
+        </div>
+      </div>
+
+      {/* Navigation */}
+      <div className="px-6 pb-8 mt-auto flex gap-3">
+        {stepIndex > 0 && (
+          <button
+            onClick={() => setStepIndex(stepIndex - 1)}
+            className="flex-1 bg-transparent border border-cream-light/20 text-cream-light font-medium text-[15px] py-3 rounded-xl active:bg-cream-light/10 transition-colors"
+          >
             Back
-          </Button>
+          </button>
         )}
-        <Button
-          variant="primary"
-          size="lg"
-          className="flex-1"
-          onClick={() => isLast ? router.back() : setStepIndex(stepIndex + 1)}
+        <button
+          onClick={() => {
+            if (isLast) {
+              router.back();
+            } else {
+              setStepIndex(stepIndex + 1);
+            }
+          }}
+          className="flex-1 bg-marigold text-indigo font-semibold text-[15px] py-3 rounded-xl flex items-center justify-center gap-1 active:brightness-95 transition-all"
         >
-          {isLast ? 'Got it – let’s go' : 'Next'}
-        </Button>
+          {isLast ? 'Got it – let’s go' : 'Next'} {!isLast && <span>&rarr;</span>}
+        </button>
       </div>
     </div>
   );

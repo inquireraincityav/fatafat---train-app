@@ -74,10 +74,10 @@ export default function LiveStatusPage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <span className="text-[14px] font-semibold text-charcoal">
-                      {dep.time} &middot; Platform {dep.platform}
+                      {dep.origin} &ndash; {dep.destination} &middot; P{dep.platform}
                     </span>
-                    {dep.minutesAway != null && dep.minutesAway <= 5 && (
-                      <span className="text-[11px] text-marigold font-medium ml-2">+{dep.minutesAway}m</span>
+                    {dep.minutesAway <= 5 && (
+                      <span className="text-[11px] text-marigold font-medium ml-2">{dep.minutesAway} min</span>
                     )}
                   </div>
                   <CrowdBadge crowd={dep.crowd} />

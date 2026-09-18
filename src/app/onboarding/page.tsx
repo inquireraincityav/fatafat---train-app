@@ -10,61 +10,74 @@ export default function OnboardingPage() {
   function handleChoice(mode: 'new-rider' | 'commuter') {
     setConfidenceMode(mode);
     setHasOnboarded(true);
-    router.replace('/home');
+    if (mode === 'new-rider') {
+      router.replace('/new-rider-intro');
+    } else {
+      router.replace('/home');
+    }
   }
 
   return (
-    <div className="min-h-dvh bg-indigo flex flex-col items-center justify-center px-6">
-      <div className="flex-1 flex flex-col items-center justify-center max-w-[320px] w-full">
-        <div className="mb-8">
-          <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-            <rect x="4" y="20" width="48" height="20" rx="4" fill="#E8A63C" />
-            <rect x="8" y="16" width="40" height="4" rx="2" fill="#F5D590" />
-            <circle cx="16" cy="44" r="4" fill="#F4EDE0" />
-            <circle cx="40" cy="44" r="4" fill="#F4EDE0" />
-            <rect x="12" y="24" width="8" height="6" rx="1" fill="#1F3A5F" />
-            <rect x="24" y="24" width="8" height="6" rx="1" fill="#1F3A5F" />
-            <rect x="36" y="24" width="8" height="6" rx="1" fill="#1F3A5F" />
+    <div className="min-h-dvh bg-indigo flex flex-col items-center px-6">
+      <div className="flex-1 flex flex-col items-center justify-center w-full max-w-[370px]">
+        {/* Train icon */}
+        <div className="w-[56px] h-[56px] rounded-[14px] bg-[#2a4a6e] flex items-center justify-center mb-4">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <rect x="6" y="4" width="16" height="18" rx="3" fill="#E8A63C" />
+            <rect x="9" y="7" width="4" height="4" rx="1" fill="#1F3A5F" />
+            <rect x="15" y="7" width="4" height="4" rx="1" fill="#1F3A5F" />
+            <circle cx="10" cy="17" r="1.5" fill="#1F3A5F" />
+            <circle cx="18" cy="17" r="1.5" fill="#1F3A5F" />
+            <rect x="8" y="22" width="2" height="3" rx="0.5" fill="#E8A63C" opacity="0.6" />
+            <rect x="18" y="22" width="2" height="3" rx="0.5" fill="#E8A63C" opacity="0.6" />
           </svg>
         </div>
 
-        <h1 className="font-serif text-[28px] font-bold text-cream-light text-center leading-[34px] mb-2">
-          How well do you know Mumbai&rsquo;s trains?
+        {/* Brand name */}
+        <h1 className="font-serif text-[32px] font-bold text-cream-light leading-[38px] mb-1">
+          Fatafat
         </h1>
-        <p className="text-[14px] leading-[21px] text-cream-light/70 text-center mb-10">
-          This just sets a starting point &ndash; you can change it anytime from Settings.
+        <p className="text-[13px] text-cream-light/60 tracking-wide mb-10">
+          Western &middot; Central &middot; Harbour &middot; BEST
         </p>
 
+        {/* Question card */}
+        <div className="w-full bg-[#253f5f] border border-[#35506e] rounded-2xl px-6 py-5 mb-6 text-center">
+          <h2 className="font-serif text-[22px] font-bold text-cream-light leading-[28px] mb-2">
+            How well do you know Mumbai&rsquo;s trains?
+          </h2>
+          <p className="text-[13px] text-cream-light/50 leading-[18px]">
+            Sets your starting point &ndash; change it anytime from Settings.
+          </p>
+        </div>
+
+        {/* Choice buttons */}
         <div className="w-full space-y-3">
           <button
             onClick={() => handleChoice('new-rider')}
-            className="w-full bg-cream-light/10 border border-cream-light/20 rounded-[14px] px-5 py-4 text-left hover:bg-cream-light/15 active:bg-cream-light/20 transition-colors"
+            className="w-full bg-marigold rounded-2xl px-5 py-4 text-left active:brightness-95 transition-all"
           >
-            <span className="block text-[16px] font-semibold text-cream-light leading-[22px]">
+            <span className="block text-[16px] font-bold text-indigo leading-[22px]">
               I&rsquo;m new here
             </span>
-            <span className="block text-[13px] text-cream-light/60 leading-[18px] mt-0.5">
-              Show me the basics as I go
+            <span className="block text-[13px] text-indigo/70 leading-[18px] mt-0.5">
+              Show me the basics first, then let me ride
             </span>
           </button>
 
           <button
             onClick={() => handleChoice('commuter')}
-            className="w-full bg-cream-light/10 border border-cream-light/20 rounded-[14px] px-5 py-4 text-left hover:bg-cream-light/15 active:bg-cream-light/20 transition-colors"
+            className="w-full bg-transparent border border-marigold/40 rounded-2xl px-5 py-4 text-left hover:bg-cream-light/5 active:bg-cream-light/10 transition-all"
           >
-            <span className="block text-[16px] font-semibold text-cream-light leading-[22px]">
+            <span className="block text-[16px] font-bold text-cream-light leading-[22px]">
               I ride daily
             </span>
-            <span className="block text-[13px] text-cream-light/60 leading-[18px] mt-0.5">
+            <span className="block text-[13px] text-cream-light/50 leading-[18px] mt-0.5">
               Keep it fast and compact
             </span>
           </button>
         </div>
       </div>
-
-      <p className="text-[11px] text-cream-light/40 pb-8 text-center">
-        Fatafat &ndash; Mumbai Transit Companion
-      </p>
     </div>
   );
 }
