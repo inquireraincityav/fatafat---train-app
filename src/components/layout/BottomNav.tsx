@@ -14,12 +14,13 @@ const tabs = [
     ),
   },
   {
-    label: 'Live',
-    path: '/live-status',
+    label: 'Tickets',
+    path: '/tickets',
     icon: (active: boolean) => (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={active ? '#1F3A5F' : '#6B6860'} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <polyline points="12 6 12 12 16 14" />
+        <rect x="2" y="4" width="20" height="16" rx="2" />
+        <path d="M2 10h20" />
+        <path d="M7 15h4" />
       </svg>
     ),
   },
@@ -33,17 +34,6 @@ const tabs = [
         <polyline points="21 16 21 21 16 21" />
         <line x1="15" y1="15" x2="21" y2="21" />
         <line x1="4" y1="4" x2="9" y2="9" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Tickets',
-    path: '/tickets',
-    icon: (active: boolean) => (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={active ? '#1F3A5F' : '#6B6860'} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="4" width="20" height="16" rx="2" />
-        <path d="M2 10h20" />
-        <path d="M7 15h4" />
       </svg>
     ),
   },
