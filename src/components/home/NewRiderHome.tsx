@@ -1,52 +1,66 @@
 'use client';
 
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { RouteInput } from '@/components/ui/RouteInput';
 
 export function NewRiderHome() {
   const router = useRouter();
-  const [from, setFrom] = useState('');
-  const [to, setTo] = useState('');
 
   return (
     <div className="px-4">
-      <div className="relative h-72 rounded-2xl overflow-hidden mb-4 bg-[#1a2332]">
-        <div className="absolute inset-0">
-          <svg width="100%" height="100%" viewBox="0 0 400 360" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="360" fill="#1a2332"/>
-            <path d="M180 0 L180 360" stroke="#1B3A6B" strokeWidth="2.5" opacity="0.7"/>
-            <path d="M220 0 L200 120 L210 220 L230 360" stroke="#C0392B" strokeWidth="2.5" opacity="0.7"/>
-            <path d="M300 40 L260 120 L220 200 L190 260 L160 360" stroke="#27AE60" strokeWidth="2.5" opacity="0.7"/>
-            <path d="M80 150 L180 150" stroke="#8B5CF6" strokeWidth="2" opacity="0.5"/>
-            <circle cx="180" cy="150" r="6" fill="#E8A63C" stroke="#E8A63C" strokeWidth="3" opacity="0.8"/>
-            <circle cx="180" cy="150" r="12" fill="none" stroke="#E8A63C" strokeWidth="1" opacity="0.4"/>
-            <circle cx="220" cy="200" r="3" fill="white" opacity="0.5"/>
-            <circle cx="180" cy="260" r="3" fill="white" opacity="0.5"/>
+      {/* Route input form */}
+      <div className="bg-cream-light border border-[#d8cebc] rounded-2xl p-4 mb-3">
+        <button
+          onClick={() => router.push('/station-picker?field=from')}
+          className="w-full flex items-center gap-3 pb-3 border-b border-[#ede5d8]"
+        >
+          <span className="w-2.5 h-2.5 rounded-full border-2 border-charcoal-light" />
+          <span className="text-[14px] text-[#a09890]">Where are you starting from?</span>
+        </button>
+        <button
+          onClick={() => router.push('/station-picker?field=to')}
+          className="w-full flex items-center gap-3 pt-3"
+        >
+          <span className="w-2.5 h-2.5 rounded-full bg-marigold" />
+          <span className="text-[14px] text-[#a09890]">Where are you going?</span>
+        </button>
+      </div>
+
+      {/* New to Mumbai trains? card */}
+      <div className="bg-cream-light border border-[#d8cebc] rounded-2xl p-4">
+        <div className="flex items-start justify-between mb-2">
+          <h3 className="font-serif text-[16px] font-bold text-indigo leading-[22px]">
+            New to Mumbai trains?
+          </h3>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B6860" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="18 15 12 9 6 15" />
           </svg>
+        </div>
+        <p className="text-[13px] text-charcoal-light leading-[18px] mb-3">
+          Fast vs. slow trains, compartments, and fares &ndash; a few basics before your first ride.
+        </p>
+        <div className="flex gap-2">
+          {[
+            { label: 'Compartments', topic: 'compartments' },
+            { label: 'Fast vs slow', topic: 'fast-vs-slow' },
+            { label: 'Fares', topic: 'fares' },
+          ].map((item) => (
+            <button
+              key={item.topic}
+              onClick={() => router.push(`/basics/${item.topic}`)}
+              className="bg-cream border border-[#d8cebc] rounded-lg px-3 py-1.5 text-[12px] text-charcoal font-medium active:bg-[#ede5d8]"
+            >
+              {item.label}
+            </button>
+          ))}
         </div>
       </div>
 
-      <div className="flex items-center gap-2 mb-4">
-        <button onClick={() => router.back()} className="p-1">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F3A5F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M19 12H5" />
-            <polyline points="12 19 5 12 12 5" />
-          </svg>
-        </button>
-        <h2 className="font-serif text-xl font-bold text-indigo">Where to?</h2>
+      {/* Crowd/platform widget placeholder */}
+      <div className="mt-3 bg-cream-light border border-dashed border-[#d8cebc] rounded-2xl p-4 text-center">
+        <p className="text-[13px] text-[#a09890] leading-[18px]">
+          Crowd &amp; platform info appears after you pick a route
+        </p>
       </div>
-
-      <RouteInput
-        from={from}
-        to={to}
-        onFromClick={() => router.push('/station-picker?field=from')}
-        onToClick={() => router.push('/station-picker?field=to')}
-      />
-
-      <p className="text-center text-sm text-charcoal-light mt-4">
-        Or tap the map above to explore the network
-      </p>
     </div>
   );
 }

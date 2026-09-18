@@ -12,22 +12,26 @@ const lines: (RailLine | 'all')[] = ['all', 'western', 'central', 'harbour', 'me
 
 export function LineFilter({ selectedLine, onChange }: LineFilterProps) {
   return (
-    <div className="flex gap-2 overflow-x-auto hide-scrollbar py-1">
+    <div className="flex gap-2 overflow-x-auto hide-scrollbar">
       {lines.map((line) => {
-        const isSelected = selectedLine === line;
+        const active = selectedLine === line;
         const color = line === 'all' ? '#E8A63C' : lineColors[line];
+        const label = line === 'all' ? 'All lines' : lineLabels[line];
         return (
           <button
             key={line}
             onClick={() => onChange(line)}
-            className={`shrink-0 px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-              isSelected
+            className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium transition-colors ${
+              active
                 ? 'text-white'
-                : 'bg-cream-light text-charcoal border border-cream hover:bg-cream'
+                : 'bg-cream-light/10 text-cream-light/70 border border-cream-light/20'
             }`}
-            style={isSelected ? { backgroundColor: color } : undefined}
+            style={active ? { backgroundColor: color } : undefined}
           >
-            {line === 'all' ? 'All' : lineLabels[line]}
+            {!active && line !== 'all' && (
+              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: color }} />
+            )}
+            {label}
           </button>
         );
       })}

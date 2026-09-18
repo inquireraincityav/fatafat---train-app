@@ -4,35 +4,46 @@ import { usePathname, useRouter } from 'next/navigation';
 
 const tabs = [
   {
-    id: 'home',
     label: 'Home',
     path: '/home',
     icon: (active: boolean) => (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill={active ? '#E8A63C' : 'none'} stroke={active ? '#E8A63C' : '#a09890'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill={active ? '#1F3A5F' : 'none'} stroke={active ? '#1F3A5F' : '#6B6860'} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-        <polyline points="9 22 9 12 15 12 15 22" fill={active ? '#F4EDE0' : 'none'} stroke={active ? '#E8A63C' : '#a09890'} />
+        <polyline points="9 22 9 12 15 12 15 22" />
       </svg>
     ),
   },
   {
-    id: 'tickets',
-    label: 'Tickets',
-    path: '/tickets',
+    label: 'Live',
+    path: '/live-status',
     icon: (active: boolean) => (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={active ? '#E8A63C' : '#a09890'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M2 9a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4V9z" />
-        <path d="M9 7v12" strokeDasharray="2 2" />
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={active ? '#1F3A5F' : '#6B6860'} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <polyline points="12 6 12 12 16 14" />
       </svg>
     ),
   },
   {
-    id: 'explore',
     label: 'Explore',
     path: '/explore',
     icon: (active: boolean) => (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={active ? '#E8A63C' : '#a09890'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill={active ? '#E8A63C' : 'none'} />
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={active ? '#1F3A5F' : '#6B6860'} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="16 3 21 3 21 8" />
+        <line x1="4" y1="20" x2="21" y2="3" />
+        <polyline points="21 16 21 21 16 21" />
+        <line x1="15" y1="15" x2="21" y2="21" />
+        <line x1="4" y1="4" x2="9" y2="9" />
+      </svg>
+    ),
+  },
+  {
+    label: 'Tickets',
+    path: '/tickets',
+    icon: (active: boolean) => (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={active ? '#1F3A5F' : '#6B6860'} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="4" width="20" height="16" rx="2" />
+        <path d="M2 10h20" />
+        <path d="M7 15h4" />
       </svg>
     ),
   },
@@ -42,24 +53,20 @@ export function BottomNav() {
   const pathname = usePathname();
   const router = useRouter();
 
-  const activeTab = tabs.find((t) => pathname.startsWith(t.path))?.id || 'home';
-
   return (
-    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-[#fbf7ef] border-t-[1.119px] border-[#ddd5c8] z-50">
-      <div className="flex items-center justify-around h-[64px]">
+    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-cream-light border-t border-[#ede5d8] z-50">
+      <div className="flex items-center justify-around h-[60px]">
         {tabs.map((tab) => {
-          const isActive = activeTab === tab.id;
+          const active = pathname?.startsWith(tab.path);
           return (
             <button
-              key={tab.id}
+              key={tab.path}
               onClick={() => router.push(tab.path)}
-              className="flex flex-col items-center gap-[2px] px-[24px] py-[4px]"
+              className="flex flex-col items-center gap-0.5 py-1 px-3"
             >
-              {tab.icon(isActive)}
+              {tab.icon(!!active)}
               <span
-                className={`text-[10px] font-medium leading-[15px] ${
-                  isActive ? 'text-[#e8a63c]' : 'text-[#a09890]'
-                }`}
+                className={`text-[10px] leading-[14px] ${active ? 'text-indigo font-semibold' : 'text-charcoal-light'}`}
               >
                 {tab.label}
               </span>
@@ -67,6 +74,7 @@ export function BottomNav() {
           );
         })}
       </div>
+      <div className="h-[env(safe-area-inset-bottom)]" />
     </nav>
   );
 }

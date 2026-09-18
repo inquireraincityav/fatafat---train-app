@@ -2,130 +2,113 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { AppShell } from '@/components/layout/AppShell';
-import { PageHeader } from '@/components/layout/PageHeader';
-import { TabBar } from '@/components/ui/TabBar';
 import { Button } from '@/components/ui/Button';
-import { TicketClass, TicketType } from '@/lib/types';
-import { getPrice, formatPrice, ticketTypeLabels, ticketTypeLabelsFirstClass } from '@/lib/pricing';
+import { TicketClass, FareType } from '@/lib/types';
+import { fares, fareLabels, fareSubLabels } from '@/lib/pricing';
 
 export default function BuyTicketPage() {
   const router = useRouter();
-  const [fromStation, setFromStation] = useState('Andheri');
-  const [toStation, setToStation] = useState('Churchgate');
+  const [from] = useState('Andheri');
+  const [to] = useState('Churchgate');
   const [ticketClass, setTicketClass] = useState<TicketClass>('second');
-  const [ticketType, setTicketType] = useState<TicketType>('single');
+  const [selectedFare, setSelectedFare] = useState<FareType>('single');
 
-  const price = getPrice(ticketClass, ticketType);
-  const labels = ticketClass === 'first' ? ticketTypeLabelsFirstClass : ticketTypeLabels;
-
-  const ticketTypes: TicketType[] = ['single', 'return', 'monthly', 'quarterly'];
+  const price = fares[ticketClass][selectedFare];
 
   return (
-    <AppShell>
-      <PageHeader title="Tickets" />
-      <div className="px-4">
-        <TabBar
-          tabs={[
-            { id: 'my-tickets' as const, label: 'My Tickets' },
-            { id: 'buy' as const, label: 'Buy' },
-          ]}
-          activeTab="buy"
-          onChange={(tab) => {
-            if (tab === 'my-tickets') router.push('/tickets');
-          }}
-        />
-
-        <div className="mt-4 space-y-4">
-          <div className="bg-cream-light rounded-xl border-l-4 border-l-charcoal-light/20 p-4">
-            <div className="text-xs text-charcoal-light uppercase tracking-wider mb-3">Route</div>
-            <button
-              onClick={() => router.push('/station-picker?field=from&returnTo=/tickets/buy')}
-              className="flex items-center gap-3 mb-3 w-full text-left"
-            >
-              <div className="w-3 h-3 rounded-full border-2 border-charcoal-light" />
-              <span className="font-medium text-charcoal">{fromStation}</span>
-            </button>
-            <button
-              onClick={() => router.push('/station-picker?field=to&returnTo=/tickets/buy')}
-              className="flex items-center gap-3 w-full text-left"
-            >
-              <div className="w-3 h-3 rounded-full border-2 border-marigold bg-marigold/30">
-                <div className="w-1 h-1 rounded-full bg-marigold mx-auto mt-[2px]" />
-              </div>
-              <span className="font-medium text-charcoal">{toStation}</span>
-            </button>
-          </div>
-
-          <TabBar
-            tabs={[
-              { id: 'second' as const, label: 'Second class' },
-              { id: 'first' as const, label: 'First class' },
-            ]}
-            activeTab={ticketClass}
-            onChange={(cls) => setTicketClass(cls as TicketClass)}
-          />
-
-          <div className="space-y-2">
-            {ticketTypes.map((type) => {
-              const isSelected = ticketType === type;
-              const typePrice = getPrice(ticketClass, type);
-              return (
-                <button
-                  key={type}
-                  onClick={() => setTicketType(type)}
-                  className={`w-full flex items-center justify-between rounded-xl px-4 py-4 transition-all ${
-                    isSelected
-                      ? 'bg-indigo text-cream-light'
-                      : 'bg-cream-light border border-cream hover:bg-cream'
-                  }`}
-                >
-                  <div className="text-left">
-                    <div className={`font-semibold ${isSelected ? 'text-cream-light' : 'text-charcoal'}`}>
-                      {labels[type].label}
-                    </div>
-                    <div className={`text-sm ${isSelected ? 'text-cream-light/60' : 'text-charcoal-light'}`}>
-                      {labels[type].description}
-                    </div>
-                  </div>
-                  <div className={`font-serif text-2xl font-bold ${isSelected ? 'text-marigold-light' : 'text-indigo'}`}>
-                    {formatPrice(typePrice)}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="bg-cream-light rounded-xl p-4 flex items-start gap-3">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B6860" strokeWidth="2" className="shrink-0 mt-0.5">
-              <circle cx="12" cy="12" r="10" />
-              <path d="M12 16v-4" />
-              <path d="M12 8h.01" />
+    <div className="min-h-dvh bg-cream flex flex-col">
+      <header className="px-4 pt-[env(safe-area-inset-top)]">
+        <div className="flex items-center gap-2 pt-3 pb-2">
+          <button onClick={() => router.back()} className="p-1 -ml-1" aria-label="Go back">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F3A5F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 12H5" />
+              <polyline points="12 19 5 12 12 5" />
             </svg>
-            <p className="text-sm text-charcoal-light">
-              Ticket is valid for the Mumbai Western Suburban Railway, {fromStation} to {toStation} section.
-            </p>
-          </div>
+          </button>
+          <h1 className="font-serif text-[18px] font-bold text-indigo">Buy ticket</h1>
+        </div>
+      </header>
 
-          <Button
-            variant="primary"
-            size="lg"
-            fullWidth
-            onClick={() => {
-              const params = new URLSearchParams({
-                from: fromStation,
-                to: toStation,
-                class: ticketClass,
-                type: ticketType,
-                price: price.toString(),
-              });
-              router.push(`/tickets/payment?${params.toString()}`);
-            }}
+      <div className="px-4 flex-1">
+        {/* Route display */}
+        <div className="bg-cream-light border border-[#d8cebc] rounded-2xl p-4 mb-3">
+          <button
+            onClick={() => router.push('/station-picker?field=from&returnTo=/tickets/buy')}
+            className="w-full flex items-center gap-3 pb-3 border-b border-[#ede5d8]"
           >
-            Proceed to pay · {formatPrice(price)}
-          </Button>
+            <span className="w-2.5 h-2.5 rounded-full border-2 border-charcoal-light" />
+            <span className="text-[14px] text-charcoal">{from}</span>
+          </button>
+          <button
+            onClick={() => router.push('/station-picker?field=to&returnTo=/tickets/buy')}
+            className="w-full flex items-center gap-3 pt-3"
+          >
+            <span className="w-2.5 h-2.5 rounded-full bg-marigold" />
+            <span className="text-[14px] text-charcoal">{to}</span>
+          </button>
+        </div>
+
+        {/* Class toggle */}
+        <div className="flex bg-cream-light border border-[#d8cebc] rounded-xl overflow-hidden mb-3">
+          <button
+            onClick={() => setTicketClass('second')}
+            className={`flex-1 py-2.5 text-[13px] font-medium transition-colors ${
+              ticketClass === 'second' ? 'bg-indigo text-cream-light' : 'text-charcoal-light'
+            }`}
+          >
+            Second class
+          </button>
+          <button
+            onClick={() => setTicketClass('first')}
+            className={`flex-1 py-2.5 text-[13px] font-medium transition-colors ${
+              ticketClass === 'first' ? 'bg-indigo text-cream-light' : 'text-charcoal-light'
+            }`}
+          >
+            First class
+          </button>
+        </div>
+
+        {/* Fare options */}
+        <div className="space-y-2 mb-4">
+          {(['single', 'return', 'monthly', 'quarterly'] as FareType[]).map((type) => (
+            <button
+              key={type}
+              onClick={() => setSelectedFare(type)}
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-xl border transition-colors ${
+                selectedFare === type
+                  ? 'bg-cream-light border-marigold ring-1 ring-marigold'
+                  : 'bg-cream-light border-[#d8cebc]'
+              }`}
+            >
+              <div>
+                <span className="text-[14px] font-medium text-charcoal">{fareLabels[type]}</span>
+                {fareSubLabels[type] && (
+                  <p className="text-[11px] text-charcoal-light mt-0.5">{fareSubLabels[type]}</p>
+                )}
+              </div>
+              <span className="text-[16px] font-bold text-indigo">₹{fares[ticketClass][type]}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Disclaimer */}
+        <div className="bg-[#f5efe5] rounded-xl px-4 py-3 mb-4">
+          <p className="text-[12px] text-charcoal-light leading-[17px]">
+            Buy and validate at the station counter or ATVM – this app doesn&rsquo;t sell tickets directly
+          </p>
         </div>
       </div>
-    </AppShell>
+
+      <div className="px-4 pb-6">
+        <Button
+          variant="primary"
+          size="lg"
+          fullWidth
+          onClick={() => router.push(`/tickets/payment?from=${from}&to=${to}&class=${ticketClass}&fare=${selectedFare}&price=${price}`)}
+        >
+          Continue &middot; ₹{price}
+        </Button>
+      </div>
+    </div>
   );
 }

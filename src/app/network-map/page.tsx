@@ -25,7 +25,7 @@ export default function NetworkMapPage() {
         </div>
         <button
           onClick={() => router.push('/settings')}
-          className="w-[36px] h-[36px] rounded-full bg-[#2a4d7a] flex items-center justify-center"
+          className="w-9 h-9 rounded-full bg-indigo-light flex items-center justify-center"
           aria-label="Settings"
         >
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F4EDE0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -40,19 +40,19 @@ export default function NetworkMapPage() {
       </div>
 
       <div className="flex-1 relative mx-4 rounded-t-2xl overflow-hidden bg-[#1a2332] min-h-[400px]">
-        <svg width="100%" height="100%" viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-          <rect width="400" height="500" fill="#1a2332"/>
-          <path d="M160 0 L160 500" stroke="#1B3A6B" strokeWidth="3" opacity="0.7"/>
-          <path d="M200 0 L190 140 L195 280 L200 500" stroke="#C0392B" strokeWidth="3" opacity="0.7"/>
-          <path d="M320 20 L270 120 L220 240 L190 340 L160 500" stroke="#27AE60" strokeWidth="3" opacity="0.7"/>
-          <path d="M60 180 L160 180" stroke="#8B5CF6" strokeWidth="2.5" opacity="0.5"/>
-          <circle cx="160" cy="100" r="3" fill="white" opacity="0.5"/>
-          <circle cx="160" cy="180" r="4" fill="#E8A63C" opacity="0.8"/>
-          <circle cx="160" cy="250" r="3" fill="white" opacity="0.5"/>
-          <circle cx="195" cy="200" r="3" fill="white" opacity="0.5"/>
-          <circle cx="220" cy="240" r="3" fill="white" opacity="0.5"/>
-          <circle cx="160" cy="360" r="3" fill="white" opacity="0.5"/>
-          <circle cx="195" cy="420" r="3" fill="white" opacity="0.5"/>
+        <svg width="100%" height="100%" viewBox="0 0 400 500" fill="none" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="500" fill="#1a2332" />
+          <path d="M160 0 L160 500" stroke="#1B3A6B" strokeWidth="3" opacity="0.7" />
+          <path d="M200 0 L190 140 L195 280 L200 500" stroke="#C0392B" strokeWidth="3" opacity="0.7" />
+          <path d="M320 20 L270 120 L220 240 L190 340 L160 500" stroke="#27AE60" strokeWidth="3" opacity="0.7" />
+          <path d="M60 180 L160 180" stroke="#8B5CF6" strokeWidth="2.5" opacity="0.5" />
+          <circle cx="160" cy="100" r="3" fill="white" opacity="0.5" />
+          <circle cx="160" cy="180" r="4" fill="#E8A63C" opacity="0.8" />
+          <circle cx="160" cy="250" r="3" fill="white" opacity="0.5" />
+          <circle cx="195" cy="200" r="3" fill="white" opacity="0.5" />
+          <circle cx="220" cy="240" r="3" fill="white" opacity="0.5" />
+          <circle cx="160" cy="360" r="3" fill="white" opacity="0.5" />
+          <circle cx="195" cy="420" r="3" fill="white" opacity="0.5" />
         </svg>
       </div>
 
@@ -70,12 +70,7 @@ export default function NetworkMapPage() {
           </div>
         </div>
 
-        <Button
-          variant="primary"
-          size="lg"
-          fullWidth
-          onClick={() => router.push('/explore')}
-        >
+        <Button variant="primary" size="lg" fullWidth onClick={() => router.push('/explore')}>
           Plan a journey on this network
         </Button>
       </div>

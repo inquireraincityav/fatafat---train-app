@@ -1,6 +1,6 @@
-import { TicketClass, TicketType } from './types';
+import { FareType, TicketClass } from './types';
 
-const prices: Record<TicketClass, Record<TicketType, number>> = {
+export const fares: Record<TicketClass, Record<FareType, number>> = {
   second: {
     single: 15,
     return: 28,
@@ -11,28 +11,20 @@ const prices: Record<TicketClass, Record<TicketType, number>> = {
     single: 50,
     return: 95,
     monthly: 960,
-    quarterly: 2730,
+    quarterly: 2750,
   },
 };
 
-export function getPrice(ticketClass: TicketClass, ticketType: TicketType): number {
-  return prices[ticketClass][ticketType];
-}
-
-export const ticketTypeLabels: Record<TicketType, { label: string; description: string }> = {
-  single: { label: 'Single journey', description: 'One way, valid same day' },
-  return: { label: 'Return', description: 'Both ways, same day' },
-  monthly: { label: 'Monthly pass', description: 'Breaks even at 21 trips' },
-  quarterly: { label: 'Quarterly pass', description: 'Best value for regulars' },
+export const fareLabels: Record<FareType, string> = {
+  single: 'Single journey',
+  return: 'Return',
+  monthly: 'Monthly pass',
+  quarterly: 'Quarterly pass',
 };
 
-export const ticketTypeLabelsFirstClass: Record<TicketType, { label: string; description: string }> = {
-  single: { label: 'Single journey', description: 'One way, first class' },
-  return: { label: 'Return', description: 'Both ways, same day' },
-  monthly: { label: 'Monthly pass', description: 'Breaks even at 20 trips' },
-  quarterly: { label: 'Quarterly pass', description: '3-month first class' },
+export const fareSubLabels: Record<FareType, string | null> = {
+  single: null,
+  return: null,
+  monthly: 'Breaks even at 21 trips',
+  quarterly: 'Best value for daily riders',
 };
-
-export function formatPrice(amount: number): string {
-  return `₹${amount.toLocaleString('en-IN')}`;
-}

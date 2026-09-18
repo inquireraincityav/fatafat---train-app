@@ -2,67 +2,81 @@
 
 import { useRouter } from 'next/navigation';
 import { DepartureCard } from './DepartureCard';
-import { mockDepartures } from '@/lib/mockData';
+import { mockDepartures, mockSavedRoutes } from '@/lib/mockData';
 
 export function CommuterHome() {
   const router = useRouter();
 
   return (
     <div>
-      <div className="px-[16px]">
-        <div className="relative rounded-[16px] overflow-hidden shadow-[0px_2px_16px_0px_rgba(0,0,0,0.18)]" style={{ height: 419 }}>
-          <div className="absolute inset-0 bg-[#ddd]">
-            <svg width="100%" height="100%" viewBox="0 0 370 419" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-              <rect width="370" height="419" fill="#1a2332"/>
-              <path d="M150 0 L150 419" stroke="#1B3A6B" strokeWidth="2.5" opacity="0.7"/>
-              <path d="M190 0 L180 140 L185 280 L190 419" stroke="#C0392B" strokeWidth="2.5" opacity="0.7"/>
-              <path d="M280 20 L240 100 L200 200 L170 300 L150 419" stroke="#27AE60" strokeWidth="2.5" opacity="0.7"/>
-              <path d="M80 160 L150 160" stroke="#8B5CF6" strokeWidth="2" opacity="0.5"/>
-              <path d="M80 260 L280 260" stroke="#E8A63C" strokeWidth="1.5" opacity="0.3"/>
-              <circle cx="150" cy="160" r="6" fill="#E8A63C" stroke="#E8A63C" strokeWidth="3" opacity="0.8"/>
-              <circle cx="150" cy="160" r="12" fill="none" stroke="#E8A63C" strokeWidth="1" opacity="0.4"/>
-              <circle cx="200" cy="200" r="3" fill="white" opacity="0.5"/>
-              <circle cx="150" cy="260" r="3" fill="white" opacity="0.5"/>
-              <circle cx="185" cy="340" r="3" fill="white" opacity="0.5"/>
+      {/* Map preview */}
+      <div className="px-4">
+        <div className="relative rounded-2xl overflow-hidden shadow-[0_2px_16px_rgba(0,0,0,0.12)]" style={{ height: 180 }}>
+          <div className="absolute inset-0 bg-[#1a2332]">
+            <svg width="100%" height="100%" viewBox="0 0 370 180" preserveAspectRatio="xMidYMid slice">
+              <rect width="370" height="180" fill="#1a2332" />
+              <path d="M150 0 L150 180" stroke="#1B3A6B" strokeWidth="2" opacity="0.6" />
+              <path d="M190 0 L185 90 L190 180" stroke="#C0392B" strokeWidth="2" opacity="0.6" />
+              <path d="M280 0 L230 90 L150 180" stroke="#27AE60" strokeWidth="2" opacity="0.6" />
+              <path d="M60 80 L150 80" stroke="#8B5CF6" strokeWidth="1.5" opacity="0.4" />
+              <circle cx="150" cy="80" r="5" fill="#E8A63C" stroke="#E8A63C" strokeWidth="2" opacity="0.8" />
+              <circle cx="150" cy="80" r="10" fill="none" stroke="#E8A63C" strokeWidth="0.8" opacity="0.3" />
             </svg>
           </div>
+          <button
+            onClick={() => router.push('/network-map')}
+            className="absolute bottom-2 right-2 bg-cream-light/90 text-[11px] text-indigo font-medium px-2.5 py-1 rounded-lg"
+          >
+            View map
+          </button>
         </div>
       </div>
 
-      <div className="bg-[#f4ede0] pt-[10px]">
-        <div className="px-[16px] pb-[8px]">
-          <button
-            onClick={() => router.push('/station-picker?field=to')}
-            className="w-full flex items-center gap-[10px] bg-[#fbf7ef] border-[1.119px] border-[#d8cebc] rounded-[12px] px-[16px] py-[12px]"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a09890" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="11" cy="11" r="8" />
-              <path d="M21 21l-4.35-4.35" />
-            </svg>
-            <span className="text-[14px] leading-[21px] text-[#a09890]">Where to?</span>
-            <div className="flex-1 flex items-center justify-end gap-[6px]">
-              <span className="w-[8px] h-[8px] rounded-full bg-[#e8a63c]" />
-              <span className="text-[11px] leading-[16.5px] text-[#6b6760]">Live</span>
-            </div>
-          </button>
-        </div>
+      {/* "Where to?" search */}
+      <div className="px-4 pt-3 pb-2">
+        <button
+          onClick={() => router.push('/station-picker?field=to')}
+          className="w-full flex items-center gap-2.5 bg-cream-light border border-[#d8cebc] rounded-xl px-4 py-3"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a09890" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="11" cy="11" r="8" />
+            <path d="M21 21l-4.35-4.35" />
+          </svg>
+          <span className="text-[14px] text-[#a09890]">Where to?</span>
+          <div className="flex-1 flex items-center justify-end gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-marigold" />
+            <span className="text-[11px] text-charcoal-light">Live</span>
+          </div>
+        </button>
+      </div>
 
-        <div className="flex items-center justify-between px-[16px] pb-[4px]">
-          <span className="text-[12px] font-semibold leading-[16px] tracking-[0.84px] text-[#a09890] uppercase">
+      {/* Quick access chips */}
+      <div className="px-4 pb-2">
+        <span className="text-[11px] text-[#a09890] font-medium mb-1.5 block">Quick access</span>
+        <div className="flex gap-2 overflow-x-auto hide-scrollbar">
+          {mockSavedRoutes.map((route) => (
+            <button
+              key={route.id}
+              onClick={() => router.push(`/journey?from=${route.from}&to=${route.to}`)}
+              className="flex-shrink-0 bg-cream-light border border-[#d8cebc] rounded-lg px-3 py-1.5 text-[12px] text-charcoal font-medium"
+            >
+              {route.from} to {route.to}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Daily commute departures */}
+      <div className="pt-1">
+        <div className="flex items-center justify-between px-4 pb-1">
+          <span className="text-[11px] font-semibold tracking-[0.8px] text-[#a09890] uppercase">
             Daily commute
           </span>
-          <button className="text-[12px] leading-[16px] text-[#a09890]">
-            All routes
-          </button>
+          <button className="text-[11px] text-[#a09890]">All routes</button>
         </div>
-
-        <div className="border-t-[1.119px] border-[#ede5d8]">
-          {mockDepartures.map((departure) => (
-            <DepartureCard
-              key={departure.id}
-              departure={departure}
-              origin={departure.id === '3' ? 'Dadar' : 'Andheri'}
-            />
+        <div className="border-t border-[#ede5d8]">
+          {mockDepartures.slice(0, 3).map((dep) => (
+            <DepartureCard key={dep.id} departure={dep} origin="Andheri" />
           ))}
         </div>
       </div>

@@ -1,40 +1,21 @@
-export const colors = {
-  marigold: '#E8A63C',
-  indigo: '#1F3A5F',
-  rust: '#C1502E',
-  cream: '#F4EDE0',
-  'cream-light': '#FBF7EF',
-  charcoal: '#3D3A34',
-  'charcoal-light': '#6B6860',
-  success: '#2D8F5E',
-  'info-light': '#5EC4D4',
-  white: '#FFFFFF',
-} as const;
+import { RailLine, CrowdLevel } from './types';
 
-export const lineColors = {
+export const lineColors: Record<RailLine, string> = {
   western: '#1B3A6B',
   central: '#C0392B',
   harbour: '#27AE60',
   'metro-1': '#8B5CF6',
-  route: '#E8A63C',
-} as const;
+};
 
-export const crowdColors = {
-  light: '#5EC4D4',
-  moderate: '#E8A63C',
-  crowded: '#C1502E',
-} as const;
-
-export const lineLabels: Record<string, string> = {
+export const lineLabels: Record<RailLine, string> = {
   western: 'Western',
   central: 'Central',
   harbour: 'Harbour',
-  'metro-1': 'Metro 1',
+  'metro-1': 'Metro Line 1',
 };
 
-export const lineAbbreviations: Record<string, string> = {
-  western: 'W',
-  central: 'C',
-  harbour: 'H',
-  'metro-1': 'M',
+export const crowdColors: Record<CrowdLevel, { bg: string; text: string }> = {
+  light: { bg: '#d4f4f2', text: '#1a7a76' },
+  moderate: { bg: '#fdf0d5', text: '#9a6a10' },
+  crowded: { bg: '#fbddd7', text: '#8b2a1a' },
 };

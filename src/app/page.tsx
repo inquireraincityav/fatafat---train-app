@@ -6,15 +6,18 @@ import { useApp } from '@/context/AppContext';
 
 export default function RootPage() {
   const router = useRouter();
-  const { hasOnboarded } = useApp();
+  const { hasOnboarded, hydrated } = useApp();
 
   useEffect(() => {
-    if (hasOnboarded) {
-      router.replace('/home');
-    } else {
-      router.replace('/onboarding');
-    }
-  }, [hasOnboarded, router]);
+    if (!hydrated) return;
+    router.replace(hasOnboarded ? '/home' : '/onboarding');
+  }, [hydrated, hasOnboarded, router]);
 
-  return null;
+  return (
+    <div className="min-h-dvh bg-indigo flex items-center justify-center">
+      <div className="animate-pulse">
+        <span className="font-serif text-3xl font-bold text-cream-light">Fatafat</span>
+      </div>
+    </div>
+  );
 }

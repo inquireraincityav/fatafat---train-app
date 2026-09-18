@@ -1,156 +1,107 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { AppShell } from '@/components/layout/AppShell';
-import { PageHeader } from '@/components/layout/PageHeader';
-import { Card } from '@/components/ui/Card';
-import { Toggle } from '@/components/ui/Toggle';
 import { useApp } from '@/context/AppContext';
 import { ConfidenceMode } from '@/lib/types';
 
 export default function SettingsPage() {
   const router = useRouter();
-  const { confidenceMode, setConfidenceMode, notifications, setNotifications } = useApp();
+  const { confidenceMode, setConfidenceMode, setHasOnboarded, hydrated } = useApp();
 
-  const modes: { id: ConfidenceMode; title: string; description: string }[] = [
-    {
-      id: 'new-rider',
-      title: 'New Rider',
-      description: 'Larger type, plain-language guides, reassurance cues on every screen',
-    },
-    {
-      id: 'commuter',
-      title: 'Commuter',
-      description: 'Dense and compact - no explanations, just the data you need',
-    },
+  if (!hydrated) return <div className="min-h-dvh bg-cream" />;
+
+  const modes: { id: ConfidenceMode; label: string; desc: string }[] = [
+    { id: 'new-rider', label: 'New rider', desc: 'Show guides, explanations, and helpful tips' },
+    { id: 'commuter', label: 'Commuter', desc: 'Compact, data-dense, skip the basics' },
   ];
 
   return (
-    <AppShell hideNav>
-      <PageHeader title="Settings" showBack showSettings={false} />
-      <div className="px-4">
-        <div className="mb-6">
-          <h2 className="text-xs font-semibold tracking-wider text-charcoal-light uppercase mb-1">
-            How well do you know Mumbai&apos;s trains?
-          </h2>
-          <p className="text-sm text-charcoal-light mb-3">
-            This changes the layout across the whole app - not just a label.
-          </p>
-
-          <div className="space-y-2">
-            {modes.map((mode) => {
-              const isSelected = confidenceMode === mode.id;
-              return (
-                <Card
-                  key={mode.id}
-                  variant={isSelected ? 'selected' : 'default'}
-                  padding="md"
-                  onClick={() => setConfidenceMode(mode.id)}
-                >
-                  <div className="flex items-start gap-3">
-                    <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 mt-0.5 ${
-                      isSelected ? 'border-success bg-success' : 'border-charcoal-light/40'
-                    }`}>
-                      {isSelected && (
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                          <polyline points="20 6 9 17 4 12" />
-                        </svg>
-                      )}
-                    </div>
-                    <div>
-                      <div className={`font-semibold ${isSelected ? 'text-cream-light' : 'text-charcoal'}`}>
-                        {mode.title}
-                      </div>
-                      <div className={`text-sm mt-0.5 ${isSelected ? 'text-cream-light/60' : 'text-charcoal-light'}`}>
-                        {mode.description}
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              );
-            })}
-          </div>
-
-          <p className="text-sm text-charcoal-light mt-3 flex items-start gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-success shrink-0 mt-1.5" />
-            <span>Currently in <strong>{confidenceMode === 'commuter' ? 'Commuter' : 'New Rider'}</strong> mode - tap to switch and see the difference on every screen</span>
-          </p>
+    <div className="min-h-dvh bg-cream">
+      <header className="px-4 pt-[env(safe-area-inset-top)]">
+        <div className="flex items-center gap-2 pt-3 pb-2">
+          <button onClick={() => router.back()} className="p-1 -ml-1" aria-label="Go back">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F3A5F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 12H5" />
+              <polyline points="12 19 5 12 12 5" />
+            </svg>
+          </button>
+          <h1 className="font-serif text-[22px] font-bold text-indigo">Settings</h1>
         </div>
+      </header>
 
-        <div className="mb-6">
-          <h2 className="text-xs font-semibold tracking-wider text-charcoal-light uppercase mb-3">
-            Notifications
-          </h2>
-          <div className="bg-cream-light rounded-xl px-4 divide-y divide-cream">
-            <Toggle
-              label="Alert 1 stop before exit"
-              description="Most important - don't miss your stop"
-              checked={notifications.alertBeforeExit}
-              onChange={(v) => setNotifications({ ...notifications, alertBeforeExit: v })}
-            />
-            <Toggle
-              label="Delay notifications"
-              checked={notifications.delayNotifications}
-              onChange={(v) => setNotifications({ ...notifications, delayNotifications: v })}
-            />
-            <Toggle
-              label="Crowd level updates"
-              checked={notifications.crowdLevelUpdates}
-              onChange={(v) => setNotifications({ ...notifications, crowdLevelUpdates: v })}
-            />
-            <Toggle
-              label="Last bus alert"
-              description="Reminds you when the last BEST bus is near"
-              checked={notifications.lastBusAlert}
-              onChange={(v) => setNotifications({ ...notifications, lastBusAlert: v })}
-            />
-          </div>
-        </div>
-
-        <div className="mb-6">
-          <h2 className="text-xs font-semibold tracking-wider text-charcoal-light uppercase mb-3">
-            Saved data
-          </h2>
-          <div className="bg-cream-light rounded-xl px-4 divide-y divide-cream">
-            <div className="flex items-center justify-between py-3.5">
-              <span className="text-charcoal">Offline timetable</span>
-              <span className="text-sm text-charcoal-light">Updated today, 7:14 AM</span>
-            </div>
-            <div className="flex items-center justify-between py-3.5">
-              <span className="text-charcoal">Saved routes</span>
-              <span className="text-sm text-charcoal-light">2 routes</span>
-            </div>
-            <div className="flex items-center justify-between py-3.5">
-              <span className="text-charcoal">App version</span>
-              <span className="text-sm text-charcoal-light">Sahi Local 1.0</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="mb-8">
-          <h2 className="text-xs font-semibold tracking-wider text-charcoal-light uppercase mb-3">
-            Contact us
-          </h2>
-          <div className="bg-cream-light rounded-xl px-4 divide-y divide-cream">
+      <div className="px-4 mt-2">
+        {/* Confidence mode */}
+        <p className="text-[11px] font-semibold tracking-[0.8px] text-[#a09890] uppercase mb-2">
+          Experience level
+        </p>
+        <div className="space-y-2 mb-6">
+          {modes.map((mode) => (
             <button
-              onClick={() => router.push('/settings/contact')}
-              className="flex items-center justify-between py-3.5 w-full text-left"
+              key={mode.id}
+              onClick={() => setConfidenceMode(mode.id)}
+              className={`w-full flex items-start gap-3 px-4 py-3.5 rounded-xl border transition-colors text-left ${
+                confidenceMode === mode.id
+                  ? 'bg-cream-light border-marigold ring-1 ring-marigold'
+                  : 'bg-cream-light border-[#d8cebc]'
+              }`}
             >
-              <span className="text-charcoal">Send a message</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B6860" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
+              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center mt-0.5 ${
+                confidenceMode === mode.id ? 'border-marigold' : 'border-[#d8cebc]'
+              }`}>
+                {confidenceMode === mode.id && <div className="w-2.5 h-2.5 rounded-full bg-marigold" />}
+              </div>
+              <div>
+                <span className="text-[14px] font-medium text-charcoal">{mode.label}</span>
+                <p className="text-[12px] text-charcoal-light mt-0.5">{mode.desc}</p>
+              </div>
             </button>
-            <a
-              href="tel:+918843298499"
-              className="flex items-center justify-between py-3.5 w-full"
+          ))}
+        </div>
+
+        {/* Notifications */}
+        <p className="text-[11px] font-semibold tracking-[0.8px] text-[#a09890] uppercase mb-2">
+          Notifications
+        </p>
+        <div className="bg-cream-light border border-[#d8cebc] rounded-xl overflow-hidden mb-6">
+          {['Departure alerts', 'Crowd updates', 'Service disruptions'].map((label, i) => (
+            <div
+              key={label}
+              className={`flex items-center justify-between px-4 py-3 ${i < 2 ? 'border-b border-[#ede5d8]' : ''}`}
             >
-              <span className="text-charcoal">Call support</span>
-              <span className="text-sm text-charcoal-light">+91 88432 98499</span>
-            </a>
-          </div>
+              <span className="text-[14px] text-charcoal">{label}</span>
+              <div className="w-[44px] h-[24px] rounded-full bg-marigold p-0.5 cursor-pointer">
+                <div className="w-[20px] h-[20px] rounded-full bg-white ml-auto shadow-sm" />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Saved data */}
+        <p className="text-[11px] font-semibold tracking-[0.8px] text-[#a09890] uppercase mb-2">
+          Data
+        </p>
+        <div className="bg-cream-light border border-[#d8cebc] rounded-xl overflow-hidden mb-6">
+          <button className="w-full flex items-center justify-between px-4 py-3 border-b border-[#ede5d8]">
+            <span className="text-[14px] text-charcoal">Clear saved routes</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a09890" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+          <button
+            onClick={() => {
+              try { localStorage.removeItem('fatafat-state'); } catch {}
+              setHasOnboarded(false);
+              router.push('/onboarding');
+            }}
+            className="w-full flex items-center justify-between px-4 py-3"
+          >
+            <span className="text-[14px] text-rust">Reset app</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C1502E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
         </div>
       </div>
-    </AppShell>
+    </div>
   );
 }
