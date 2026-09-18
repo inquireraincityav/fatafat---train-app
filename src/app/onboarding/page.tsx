@@ -31,7 +31,7 @@ export default function OnboardingPage() {
           </svg>
         </div>
         <h1 className="font-serif text-4xl font-bold text-cream-light mb-2">Fatafat</h1>
-        <p className="text-cream-light/60 text-sm">Western - Central - Harbour - BEST</p>
+        <p className="text-cream-light/60 text-sm">Western · Central · Harbour · BEST</p>
       </div>
 
       <div className="w-full max-w-sm bg-indigo-light/50 rounded-2xl border border-cream-light/10 p-6 mb-8">

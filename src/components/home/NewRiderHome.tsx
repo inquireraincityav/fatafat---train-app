@@ -11,9 +11,19 @@ export function NewRiderHome() {
 
   return (
     <div className="px-4">
-      <div className="relative h-72 rounded-2xl overflow-hidden mb-4 bg-indigo">
-        <div className="absolute inset-0 flex items-center justify-center text-cream-light/50 text-sm">
-          Map loads with Carto API key
+      <div className="relative h-72 rounded-2xl overflow-hidden mb-4 bg-[#1a2332]">
+        <div className="absolute inset-0">
+          <svg width="100%" height="100%" viewBox="0 0 400 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="360" fill="#1a2332"/>
+            <path d="M180 0 L180 360" stroke="#3B82F6" strokeWidth="2.5" opacity="0.6"/>
+            <path d="M220 0 L200 120 L210 220 L230 360" stroke="#EF4444" strokeWidth="2.5" opacity="0.6"/>
+            <path d="M300 40 L260 120 L220 200 L190 260 L160 360" stroke="#22C55E" strokeWidth="2.5" opacity="0.6"/>
+            <path d="M80 150 L180 150" stroke="#8B5CF6" strokeWidth="2" opacity="0.5"/>
+            <circle cx="180" cy="150" r="6" fill="#E8A63C" stroke="#E8A63C" strokeWidth="3" opacity="0.8"/>
+            <circle cx="180" cy="150" r="12" fill="none" stroke="#E8A63C" strokeWidth="1" opacity="0.4"/>
+            <circle cx="220" cy="200" r="3" fill="white" opacity="0.5"/>
+            <circle cx="180" cy="260" r="3" fill="white" opacity="0.5"/>
+          </svg>
         </div>
       </div>
 

@@ -102,7 +102,7 @@ function PaymentContent() {
             <div className="flex justify-between">
               <span className="text-charcoal-light">Type</span>
               <span className="font-medium text-charcoal">
-                {ticketType.charAt(0).toUpperCase() + ticketType.slice(1)} journey - {ticketClass === 'first' ? 'First' : 'Second'} class
+                {ticketType.charAt(0).toUpperCase() + ticketType.slice(1)} journey · {ticketClass === 'first' ? 'First' : 'Second'} class
               </span>
             </div>
             <div className="flex justify-between">
@@ -161,9 +161,9 @@ function PaymentContent() {
 
         <div className="bg-cream-light rounded-xl px-4 py-2.5 mb-4">
           <span className="text-sm text-charcoal">
-            {ticketType.charAt(0).toUpperCase() + ticketType.slice(1)} journey - {ticketClass === 'first' ? 'First' : 'Second'} class
+            {ticketType.charAt(0).toUpperCase() + ticketType.slice(1)} journey · {ticketClass === 'first' ? 'First' : 'Second'} class
           </span>
-          <span className="mx-3 text-charcoal-light">|</span>
+          <span className="mx-2 text-charcoal-light">·</span>
           <span className="text-sm text-charcoal">{from} → {to}</span>
         </div>
 

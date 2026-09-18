@@ -15,10 +15,19 @@ export function NetworkTab() {
     <div>
       <LineFilter selectedLine={selectedLine} onChange={setSelectedLine} />
 
-      <div className="mt-4 rounded-2xl overflow-hidden bg-indigo relative" style={{ height: 400 }}>
-        <div className="absolute inset-0 flex items-center justify-center text-cream-light/50 text-sm">
-          Map loads with Carto API key
-        </div>
+      <div className="mt-4 rounded-2xl overflow-hidden bg-[#1a2332] relative" style={{ height: 400 }}>
+        <svg width="100%" height="100%" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="400" fill="#1a2332"/>
+          <path d="M160 0 L160 400" stroke="#3B82F6" strokeWidth="3" opacity="0.6"/>
+          <path d="M200 0 L190 120 L195 240 L200 400" stroke="#EF4444" strokeWidth="3" opacity="0.6"/>
+          <path d="M300 20 L260 100 L220 200 L190 300 L160 400" stroke="#22C55E" strokeWidth="3" opacity="0.6"/>
+          <path d="M60 160 L160 160" stroke="#8B5CF6" strokeWidth="2.5" opacity="0.5"/>
+          <circle cx="160" cy="100" r="3" fill="white" opacity="0.5"/>
+          <circle cx="160" cy="200" r="3" fill="white" opacity="0.5"/>
+          <circle cx="195" cy="160" r="3" fill="white" opacity="0.5"/>
+          <circle cx="220" cy="200" r="3" fill="white" opacity="0.5"/>
+          <circle cx="160" cy="300" r="3" fill="white" opacity="0.5"/>
+        </svg>
       </div>
 
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-3 px-1">

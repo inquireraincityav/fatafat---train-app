@@ -71,9 +71,9 @@ export default function SettingsPage() {
             })}
           </div>
 
-          <p className="text-sm text-charcoal-light mt-3 flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-success" />
-            Currently in <strong>{confidenceMode === 'commuter' ? 'Commuter' : 'New Rider'}</strong> mode - tap to switch and see the difference on every screen
+          <p className="text-sm text-charcoal-light mt-3 flex items-start gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-success shrink-0 mt-1.5" />
+            <span>Currently in <strong>{confidenceMode === 'commuter' ? 'Commuter' : 'New Rider'}</strong> mode - tap to switch and see the difference on every screen</span>
           </p>
         </div>
 

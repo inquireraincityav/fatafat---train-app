@@ -8,9 +8,9 @@ const tabs = [
     label: 'Home',
     path: '/home',
     icon: (active: boolean) => (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={active ? '#E8A63C' : '#6B6860'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill={active ? '#E8A63C' : 'none'} stroke={active ? '#E8A63C' : '#6B6860'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-        <polyline points="9 22 9 12 15 12 15 22" />
+        <polyline points="9 22 9 12 15 12 15 22" fill={active ? '#F4EDE0' : 'none'} stroke={active ? '#E8A63C' : '#6B6860'} />
       </svg>
     ),
   },
@@ -19,11 +19,9 @@ const tabs = [
     label: 'Tickets',
     path: '/tickets',
     icon: (active: boolean) => (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={active ? '#E8A63C' : '#6B6860'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="4" width="20" height="16" rx="2" />
-        <path d="M2 10h20" />
-        <path d="M7 15h4" />
-        <path d="M7 18h2" />
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={active ? '#E8A63C' : '#6B6860'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M2 9a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4V9z" />
+        <path d="M9 7v12" strokeDasharray="2 2" />
       </svg>
     ),
   },
@@ -32,9 +30,9 @@ const tabs = [
     label: 'Explore',
     path: '/explore',
     icon: (active: boolean) => (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={active ? '#E8A63C' : '#6B6860'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={active ? '#E8A63C' : '#6B6860'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="10" />
-        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill={active ? '#E8A63C' : 'none'} />
       </svg>
     ),
   },

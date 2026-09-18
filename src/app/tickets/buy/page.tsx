@@ -37,20 +37,22 @@ export default function BuyTicketPage() {
         />
 
         <div className="mt-4 space-y-4">
-          <div className="bg-cream-light rounded-xl border border-dashed border-charcoal-light/30 p-4">
-            <div className="text-xs text-charcoal-light uppercase tracking-wider mb-2">Route</div>
+          <div className="bg-cream-light rounded-xl border-l-4 border-l-charcoal-light/20 p-4">
+            <div className="text-xs text-charcoal-light uppercase tracking-wider mb-3">Route</div>
             <button
               onClick={() => router.push('/station-picker?field=from&returnTo=/tickets/buy')}
-              className="flex items-center gap-2 mb-2 w-full text-left"
+              className="flex items-center gap-3 mb-3 w-full text-left"
             >
-              <div className="w-2.5 h-2.5 rounded-full border-2 border-charcoal-light" />
+              <div className="w-3 h-3 rounded-full border-2 border-charcoal-light" />
               <span className="font-medium text-charcoal">{fromStation}</span>
             </button>
             <button
               onClick={() => router.push('/station-picker?field=to&returnTo=/tickets/buy')}
-              className="flex items-center gap-2 w-full text-left"
+              className="flex items-center gap-3 w-full text-left"
             >
-              <div className="w-2.5 h-2.5 rounded-full border-2 border-marigold bg-marigold/20" />
+              <div className="w-3 h-3 rounded-full border-2 border-marigold bg-marigold/30">
+                <div className="w-1 h-1 rounded-full bg-marigold mx-auto mt-[2px]" />
+              </div>
               <span className="font-medium text-charcoal">{toStation}</span>
             </button>
           </div>
@@ -86,7 +88,7 @@ export default function BuyTicketPage() {
                       {labels[type].description}
                     </div>
                   </div>
-                  <div className={`font-serif text-2xl font-bold ${isSelected ? 'text-marigold' : 'text-indigo'}`}>
+                  <div className={`font-serif text-2xl font-bold ${isSelected ? 'text-marigold-light' : 'text-indigo'}`}>
                     {formatPrice(typePrice)}
                   </div>
                 </button>
@@ -120,7 +122,7 @@ export default function BuyTicketPage() {
               router.push(`/tickets/payment?${params.toString()}`);
             }}
           >
-            Proceed to pay - {formatPrice(price)}
+            Proceed to pay · {formatPrice(price)}
           </Button>
         </div>
       </div>
