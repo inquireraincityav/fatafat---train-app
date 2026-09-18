@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-marigold: #E8A63C;
+  --color-marigold-light: #F5D590;
+  --color-indigo: #1F3A5F;
+  --color-indigo-light: #2A4D7A;
+  --color-rust: #C1502E;
+  --color-cream: #F4EDE0;
+  --color-cream-light: #FBF7EF;
+  --color-charcoal: #3D3A34;
+  --color-charcoal-light: #6B6860;
+  --color-success: #2D8F5E;
+  --color-success-light: #D1FAE5;
+  --color-info-light: #5EC4D4;
+  --color-line-western: #3B82F6;
+  --color-line-central: #EF4444;
+  --color-line-harbour: #22C55E;
+  --color-line-metro: #8B5CF6;
+  --color-line-route: #E8A63C;
+  --font-serif: 'Playfair Display', 'Georgia', serif;
+  --font-sans: 'Source Sans 3', 'Source Sans Pro', system-ui, sans-serif;
+}
+
+html, body {
+  background: #F4EDE0;
+  color: #3D3A34;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+}
+
+body {
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  position: relative;
+}
+
+input, textarea, select {
+  font-family: var(--font-sans);
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.pb-safe {
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), 16px);
+}

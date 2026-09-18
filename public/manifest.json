@@ -1,0 +1,21 @@
+{
+  "name": "Fatafat - Mumbai Transit",
+  "short_name": "Fatafat",
+  "description": "Your companion for navigating Mumbai's suburban railway network",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F4EDE0",
+  "theme_color": "#1F3A5F",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
