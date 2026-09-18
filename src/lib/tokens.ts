@@ -12,9 +12,9 @@ export const colors = {
 } as const;
 
 export const lineColors = {
-  western: '#3B82F6',
-  central: '#EF4444',
-  harbour: '#22C55E',
+  western: '#1B3A6B',
+  central: '#C0392B',
+  harbour: '#27AE60',
   'metro-1': '#8B5CF6',
   route: '#E8A63C',
 } as const;

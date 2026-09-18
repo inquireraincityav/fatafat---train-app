@@ -18,16 +18,16 @@ export function DepartureCard({ departure, compact = false, origin = 'Andheri' }
     <div className="flex items-center justify-between py-3.5 px-1 border-b border-cream last:border-0">
       <div className="flex items-center gap-3 flex-1 min-w-0">
         <div
-          className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0"
+          className="w-7 h-5 rounded flex items-center justify-center text-white text-[9px] font-semibold tracking-wide shrink-0"
           style={{ backgroundColor: lineColor }}
         >
           {lineAbbr}
         </div>
         <div className="min-w-0">
-          <div className="font-semibold text-charcoal truncate">
+          <div className="font-semibold text-[14px] text-indigo truncate leading-[17.5px]">
             {origin} - {departure.destination.name}
           </div>
-          <div className="text-xs text-charcoal-light flex items-center gap-1">
+          <div className="text-[11px] text-[#a09890] flex items-center gap-1 mt-0.5">
             <span>{departure.trainType === 'fast' ? 'Fast' : 'Slow'}</span>
             <span>·</span>
             <span>P{departure.platform}</span>
@@ -45,16 +45,20 @@ export function DepartureCard({ departure, compact = false, origin = 'Andheri' }
           </div>
         </div>
       </div>
-      <div className="flex items-center gap-3 shrink-0">
-        <div className="text-right">
-          <div className="flex items-center gap-0.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-marigold mb-auto mt-0.5" />
+      <div className="flex items-start gap-2 shrink-0">
+        <div className="flex items-start gap-1">
+          <div className="flex flex-col items-center pt-2">
+            <div className="relative">
+              <span className="absolute -inset-0.5 rounded-full bg-marigold/20" />
+              <span className="relative block w-1.5 h-1.5 rounded-full bg-marigold" />
+            </div>
+            <span className="font-serif text-[22px] font-semibold text-indigo leading-[22px] mt-1">{departure.minutesAway}</span>
+            <span className="text-[10px] text-[#a09890] leading-tight">min</span>
           </div>
-          <div className="flex items-baseline gap-1">
-            <span className="font-serif text-2xl font-bold text-indigo">{departure.minutesAway}</span>
-            <span className="text-sm text-charcoal-light">{departure.nextAfter}</span>
+          <div className="flex flex-col items-center pt-2">
+            <div className="h-[9px]" />
+            <span className="font-serif text-[15px] text-[#c8bfb0] leading-[22px]">{departure.nextAfter}</span>
           </div>
-          <span className="text-xs text-charcoal-light">min</span>
         </div>
         <Badge variant="crowd" crowdLevel={departure.crowdLevel}>
           {departure.crowdLevel.charAt(0).toUpperCase() + departure.crowdLevel.slice(1)}
